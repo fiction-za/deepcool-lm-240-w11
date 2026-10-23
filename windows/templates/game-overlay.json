@@ -1,0 +1,13 @@
+{
+  "id": "game-overlay",
+  "name": "Game overlay",
+  "background": "#020617",
+  "elements": [
+    { "type": "image", "x": 0, "y": 0, "w": 320, "h": 240, "opacity": 0.38, "bind": "game.art" },
+    { "type": "rect", "x": 0, "y": 148, "w": 320, "h": 92, "fill": "#020617", "opacity": 0.82 },
+    { "type": "text", "x": 14, "y": 154, "text": "{game.name}", "color": "#F8FAFC", "size": 16, "weight": "bold" },
+    { "type": "text", "x": 14, "y": 180, "text": "CPU {cpu.power:0}W  {cpu.temp:0}°", "color": "#93C5FD", "size": 13 },
+    { "type": "text", "x": 14, "y": 200, "text": "GPU {gpu.power:0}W  {gpu.temp:0}°", "color": "#FDBA74", "size": 13 },
+    { "type": "bar", "x": 196, "y": 186, "w": 110, "h": 10, "bind": "gpu.usage", "max": 100, "fill": "#EA580C", "track": "#1E293B" }
+  ]
+}

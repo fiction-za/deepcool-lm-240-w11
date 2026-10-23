@@ -18,3 +18,8 @@ src/
 # Development/local files
 test_aur_package.sh
 AUR_PUBLISHING_GUIDE.md
+
+# C# / CodeGraph
+bin/
+obj/
+.codegraph/

@@ -1,0 +1,64 @@
+---
+description: Smallest-change review for plans, implementation, and final review
+alwaysApply: true
+---
+
+# Ponytail Review Rule
+
+Use Ponytail when reviewing any implementation plan or completed code change.
+
+## Purpose
+
+Prefer the smallest useful change.
+
+The best code is the code we never had to write.
+
+## When to Use
+
+Use for:
+
+- implementation plans
+- backend changes
+- frontend changes
+- refactors
+- bug fixes
+- feature requests
+- final reviews
+
+## Review Questions
+
+Before implementation, ask:
+
+- Is this change actually required?
+- Can existing code solve this?
+- Can this be done with fewer files?
+- Are we adding unnecessary abstraction?
+- Are we solving a future problem instead of the current one?
+- Can the plan be reduced by 30%?
+
+After implementation, ask:
+
+- Was any unnecessary code added?
+- Did we duplicate logic?
+- Did we touch unrelated files?
+- Can anything be deleted?
+- Is this still the smallest safe solution?
+
+## Output Format
+
+When asked for a Ponytail review, respond with:
+
+```md
+## Ponytail Review
+
+### Keep
+- [what is necessary]
+
+### Remove
+- [what is unnecessary]
+
+### Simplify
+- [simpler approach]
+
+### Final Recommendation
+[proceed / revise / stop]

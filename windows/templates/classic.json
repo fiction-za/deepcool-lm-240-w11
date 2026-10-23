@@ -1,0 +1,18 @@
+{
+  "id": "classic",
+  "name": "Classic dual",
+  "background": "#0E0E12",
+  "elements": [
+    { "type": "rect", "x": 12, "y": 10, "w": 296, "h": 108, "radius": 8, "stroke": "#282832", "strokeWidth": 2 },
+    { "type": "text", "x": 20, "y": 16, "text": "CPU", "color": "#6E6E82", "size": 16, "weight": "bold" },
+    { "type": "text", "x": 300, "y": 12, "align": "right", "text": "{cpu.power:0} W", "colorBy": "cpu.temp", "size": 26, "weight": "bold" },
+    { "type": "text", "x": 20, "y": 48, "text": "{cpu.temp:0}°  {cpu.usage:0}%  {cpu.freq:0.00} GHz", "color": "#828296", "size": 13 },
+    { "type": "bar", "x": 20, "y": 86, "w": 280, "h": 16, "bind": "cpu.usage", "max": 100, "fill": "#64B4FF", "track": "#1E1E26" },
+
+    { "type": "rect", "x": 12, "y": 126, "w": 296, "h": 104, "radius": 8, "stroke": "#282832", "strokeWidth": 2 },
+    { "type": "text", "x": 20, "y": 132, "text": "GPU", "color": "#6E6E82", "size": 16, "weight": "bold" },
+    { "type": "text", "x": 300, "y": 128, "align": "right", "text": "{gpu.power:0} W", "colorBy": "gpu.temp", "size": 26, "weight": "bold" },
+    { "type": "text", "x": 20, "y": 164, "text": "{gpu.temp:0}°  {gpu.usage:0}%", "color": "#828296", "size": 13 },
+    { "type": "bar", "x": 20, "y": 198, "w": 280, "h": 16, "bind": "gpu.usage", "max": 100, "colorBy": "gpu.temp", "track": "#1E1E26" }
+  ]
+}

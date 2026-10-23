@@ -1,0 +1,17 @@
+{
+  "id": "big-watts",
+  "name": "Big watts",
+  "background": "#020617",
+  "elements": [
+    { "type": "text", "x": 16, "y": 14, "text": "CPU", "color": "#64748B", "size": 14, "weight": "bold" },
+    { "type": "text", "x": 16, "y": 34, "text": "{cpu.power:0}", "color": "#F8FAFC", "size": 52, "weight": "bold" },
+    { "type": "text", "x": 150, "y": 58, "text": "W", "color": "#64748B", "size": 18 },
+    { "type": "text", "x": 16, "y": 96, "text": "{cpu.temp:0}°  {cpu.usage:0}%", "color": "#93C5FD", "size": 14 },
+    { "type": "bar", "x": 16, "y": 118, "w": 288, "h": 8, "bind": "cpu.usage", "max": 100, "fill": "#3B82F6", "track": "#1E293B" },
+
+    { "type": "text", "x": 16, "y": 138, "text": "GPU", "color": "#64748B", "size": 14, "weight": "bold" },
+    { "type": "text", "x": 16, "y": 158, "text": "{gpu.power:0}", "color": "#F8FAFC", "size": 52, "weight": "bold" },
+    { "type": "text", "x": 150, "y": 182, "text": "W", "color": "#64748B", "size": 18 },
+    { "type": "text", "x": 16, "y": 216, "text": "{gpu.temp:0}°  {gpu.usage:0}%", "color": "#FDBA74", "size": 14 }
+  ]
+}

@@ -1,0 +1,52 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DeepcoolLm240Gui.App"
+             RequestedThemeVariant="Dark">
+  <TrayIcon.Icons>
+    <TrayIcons>
+      <TrayIcon Icon="/Assets/tray.png"
+                ToolTipText="LM240 LCD"
+                Clicked="OnTrayClicked">
+        <TrayIcon.Menu>
+          <NativeMenu>
+            <NativeMenuItem Header="Open" Click="OnOpenClicked" />
+            <NativeMenuItemSeparator />
+            <NativeMenuItem Header="Exit" Click="OnExitClicked" />
+          </NativeMenu>
+        </TrayIcon.Menu>
+      </TrayIcon>
+    </TrayIcons>
+  </TrayIcon.Icons>
+  <Application.Styles>
+    <FluentTheme />
+    <Style Selector="Button">
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Padding" Value="12,8" />
+      <Setter Property="MinHeight" Value="36" />
+    </Style>
+    <Style Selector="Button.send">
+      <Setter Property="Background" Value="#EA580C" />
+      <Setter Property="Foreground" Value="#000000" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.send:pointerover">
+      <Setter Property="Background" Value="#C2410C" />
+    </Style>
+    <Style Selector="Button.send:focus">
+      <Setter Property="BorderBrush" Value="#93C5FD" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <Style Selector="Button.swatch">
+      <Setter Property="Width" Value="36" />
+      <Setter Property="Height" Value="36" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="CornerRadius" Value="6" />
+      <Setter Property="BorderBrush" Value="#475569" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="Button.swatch:focus">
+      <Setter Property="BorderBrush" Value="#93C5FD" />
+      <Setter Property="BorderThickness" Value="2" />
+    </Style>
+  </Application.Styles>
+</Application>

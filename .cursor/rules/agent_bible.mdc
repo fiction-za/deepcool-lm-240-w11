@@ -1,0 +1,34 @@
+---
+description: Surgical edits and inspect-first workflow for this LM240 USB driver
+alwaysApply: true
+---
+
+# Agent working instructions
+
+This repository is a Deepcool LM240 USB LCD driver. The protocol source of truth is `deepcool-lm` (VID `0x3633`, PID `0x0026`, bulk OUT `0x01`, 320x240 RGB565). It is not a web app.
+
+## Principles
+
+- Inspect the relevant path before editing. State assumptions. Ask if the request is ambiguous.
+- Make the smallest change that solves the request. Do not add abstractions, extra CLI, or refactors unless required.
+- Touch only files related to the task. Do not clean up unrelated issues.
+- Define a success check before editing (build, `list`/`pattern` on Windows, or a narrow command). Run that check after the first substantive edit.
+- If unsure, say so. Do not silently choose a risky USB or driver-binding interpretation.
+
+## Scope stop
+
+Before editing, estimate files, components, and validation.
+
+If more than 5 files will change, stop and present a plan first. Skip that stop when the user already asked to implement a small, named change; name the files and proceed.
+
+## Inspection
+
+Default to locating the relevant files and functions. Do not scan the whole repo. Use CodeGraph when more than 3 files, a shared USB helper, or impact is unclear. After a multi-file edit, run `codegraph sync .`.
+
+## Validation
+
+Use the narrowest check: `dotnet build` for the Windows PoC, a direct run of `deepcool-lm` changes on Linux, or the Windows LCD `pattern` command. If you cannot run it, say why and give the exact command.
+
+## After changes
+
+Report what changed, why, how it was validated, and remaining risk. No drive-by edits.

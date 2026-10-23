@@ -1,0 +1,26 @@
+---
+description: Use CodeGraph for architecture, dependency tracing, impact analysis, and multi-file changes
+alwaysApply: true
+---
+
+This project uses CodeGraph for repository graph discovery and codebase understanding.
+
+Use CodeGraph before code exploration when:
+
+- More than 3 files may be involved
+- Shared services are being modified
+- Refactoring is requested
+- Architecture understanding is required
+- Dependency impact is unclear
+
+Use direct inspection first for:
+
+- Small bug fixes
+- Single-file changes
+- UI copy changes
+- Styling adjustments
+- Localized component updates
+
+CodeGraph should augment inspection, not replace it.
+
+After a multi-file change or a shared-service edit, refresh the index with `codegraph sync .`. Skip that sync for a single-file bugfix, UI copy change, or styling adjustment.
