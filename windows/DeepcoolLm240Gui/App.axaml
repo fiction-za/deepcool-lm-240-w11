@@ -11,42 +11,113 @@
           <NativeMenu>
             <NativeMenuItem Header="Open" Click="OnOpenClicked" />
             <NativeMenuItemSeparator />
-            <NativeMenuItem Header="Exit" Click="OnExitClicked" />
+            <NativeMenuItem Header="Quit LM240" Click="OnExitClicked" />
           </NativeMenu>
         </TrayIcon.Menu>
       </TrayIcon>
     </TrayIcons>
   </TrayIcon.Icons>
+  <Application.Resources>
+    <Color x:Key="SystemAccentColor">#FF0A84FF</Color>
+    <Color x:Key="SystemAccentColorDark1">#FF0071E3</Color>
+    <Color x:Key="SystemAccentColorDark2">#FF0058B0</Color>
+    <Color x:Key="SystemAccentColorLight1">#FF409CFF</Color>
+    <Color x:Key="SystemAccentColorLight2">#FF64D2FF</Color>
+    <Color x:Key="SystemAccentColorLight3">#FF7DC1FF</Color>
+  </Application.Resources>
   <Application.Styles>
     <FluentTheme />
+    <Style Selector="Window">
+      <Setter Property="FontFamily" Value="Inter, -apple-system, Segoe UI, sans-serif" />
+      <Setter Property="FontSize" Value="13" />
+    </Style>
     <Style Selector="Button">
       <Setter Property="Cursor" Value="Hand" />
-      <Setter Property="Padding" Value="12,8" />
-      <Setter Property="MinHeight" Value="36" />
+      <Setter Property="Padding" Value="14,7" />
+      <Setter Property="MinHeight" Value="32" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Background" Value="#3A3A3C" />
+      <Setter Property="Foreground" Value="#F5F5F7" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="Button:pointerover">
+      <Setter Property="Background" Value="#48484A" />
+    </Style>
+    <Style Selector="Button:pressed">
+      <Setter Property="Background" Value="#636366" />
+    </Style>
+    <Style Selector="Button:focus">
+      <Setter Property="BorderBrush" Value="#0A84FF" />
+      <Setter Property="BorderThickness" Value="2" />
     </Style>
     <Style Selector="Button.send">
-      <Setter Property="Background" Value="#EA580C" />
-      <Setter Property="Foreground" Value="#000000" />
+      <Setter Property="Background" Value="#0A84FF" />
+      <Setter Property="Foreground" Value="#FFFFFF" />
       <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Padding" Value="18,8" />
     </Style>
     <Style Selector="Button.send:pointerover">
-      <Setter Property="Background" Value="#C2410C" />
+      <Setter Property="Background" Value="#409CFF" />
     </Style>
-    <Style Selector="Button.send:focus">
-      <Setter Property="BorderBrush" Value="#93C5FD" />
-      <Setter Property="BorderThickness" Value="2" />
+    <Style Selector="Button.send:pressed">
+      <Setter Property="Background" Value="#0071E3" />
     </Style>
-    <Style Selector="Button.swatch">
-      <Setter Property="Width" Value="36" />
-      <Setter Property="Height" Value="36" />
-      <Setter Property="Padding" Value="0" />
-      <Setter Property="CornerRadius" Value="6" />
-      <Setter Property="BorderBrush" Value="#475569" />
-      <Setter Property="BorderThickness" Value="1" />
+    <Style Selector="Button.quiet">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="#0A84FF" />
     </Style>
-    <Style Selector="Button.swatch:focus">
-      <Setter Property="BorderBrush" Value="#93C5FD" />
-      <Setter Property="BorderThickness" Value="2" />
+    <Style Selector="Button.quiet:pointerover">
+      <Setter Property="Background" Value="#1F0A84FF" />
+    </Style>
+    <Style Selector="ListBox.sidebar">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="8,4" />
+    </Style>
+    <Style Selector="ListBox.sidebar ListBoxItem">
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Padding" Value="12,9" />
+      <Setter Property="Margin" Value="0,2" />
+      <Setter Property="MinHeight" Value="48" />
+      <Setter Property="Foreground" Value="#F5F5F7" />
+      <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="ListBox.sidebar ListBoxItem:pointerover">
+      <Setter Property="Background" Value="#3A3A3C" />
+    </Style>
+    <Style Selector="ListBox.sidebar ListBoxItem:selected">
+      <Setter Property="Background" Value="#0A84FF" />
+      <Setter Property="Foreground" Value="#FFFFFF" />
+    </Style>
+    <Style Selector="ListBox.sidebar ListBoxItem:selected /template/ ContentPresenter">
+      <Setter Property="Background" Value="#0A84FF" />
+      <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="ListBox.sidebar ListBoxItem:selected:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#409CFF" />
+    </Style>
+    <Style Selector="ListBox.sidebar ListBoxItem:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#3A3A3C" />
+      <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="ListBox.sidebar ListBoxItem:selected TextBlock">
+      <Setter Property="Foreground" Value="#FFFFFF" />
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+    <Style Selector="TextBlock.caption">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#8E8E93" />
+    </Style>
+    <Style Selector="TextBlock.metricValue">
+      <Setter Property="FontSize" Value="22" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#F5F5F7" />
+    </Style>
+    <Style Selector="Border.metric">
+      <Setter Property="Background" Value="#2C2C2E" />
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="Padding" Value="14,12" />
     </Style>
   </Application.Styles>
 </Application>

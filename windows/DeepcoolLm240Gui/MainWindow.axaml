@@ -1,62 +1,187 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:DeepcoolLm240Gui"
         x:Class="DeepcoolLm240Gui.MainWindow"
-        Title="LM240 LCD"
-        Width="740"
-        Height="700"
-        MinWidth="580"
-        MinHeight="540"
+        Title="LM240"
+        Width="980"
+        Height="680"
+        MinWidth="840"
+        MinHeight="560"
         WindowStartupLocation="CenterScreen"
-        Background="#0F172A">
-  <Grid Margin="20" RowDefinitions="Auto,Auto,*,Auto,Auto">
-    <TextBlock Grid.Row="0"
-               Text="LM240 LCD"
-               FontSize="22"
-               FontWeight="SemiBold"
-               Foreground="#F8FAFC" />
-    <TextBlock x:Name="StatusText"
-               Grid.Row="1"
-               Margin="0,8,0,12"
-               Text="Ready"
-               FontSize="13"
-               Foreground="#94A3B8"
-               TextWrapping="Wrap"
-               MinHeight="36" />
+        WindowState="Normal"
+        ShowActivated="True"
+        TransparencyLevelHint="None"
+        Background="#1C1C1E"
+        UseLayoutRounding="True">
+  <Grid ColumnDefinitions="268,*">
+    <Border Background="#2C2C2E"
+            BorderBrush="#3A3A3C"
+            BorderThickness="0,0,1,0">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="22,22,22,8">
+          <TextBlock Text="LM240"
+                     FontSize="22"
+                     FontWeight="SemiBold"
+                     Foreground="#F5F5F7" />
+          <TextBlock Text="Pump display"
+                     Margin="0,2,0,0"
+                     FontSize="13"
+                     Foreground="#8E8E93" />
+        </StackPanel>
 
-    <Border Grid.Row="2"
-            Background="#020617"
-            BorderBrush="#334155"
-            BorderThickness="1"
-            CornerRadius="8"
-            Padding="12"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch">
-      <Viewbox Stretch="Uniform">
-        <Image x:Name="LcdPreview"
-               Width="320"
-               Height="240"
-               Stretch="Fill"
-               RenderOptions.BitmapInterpolationMode="None" />
-      </Viewbox>
+        <StackPanel DockPanel.Dock="Bottom" Margin="12,0,12,16">
+          <Border Background="#1C1C1E"
+                  CornerRadius="10"
+                  Padding="12,10"
+                  Margin="0,0,0,10">
+            <StackPanel Spacing="2">
+              <TextBlock Classes="caption" Text="STATUS" />
+              <TextBlock x:Name="DeviceStatusText"
+                         Text="Checking display…"
+                         FontSize="13"
+                         FontWeight="Medium"
+                         Foreground="#F5F5F7"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+          </Border>
+          <Button Classes="quiet"
+                  Content="Choose game art…"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  Click="OnLoadGameArt"
+                  HotKey="Ctrl+O"
+                  ToolTip.Tip="Image used by the Game overlay template"
+                  AutomationProperties.Name="Load game art" />
+          <TextBlock x:Name="GameArtLabel"
+                     Margin="4,4,4,0"
+                     FontSize="11"
+                     Foreground="#8E8E93"
+                     TextTrimming="CharacterEllipsis"
+                     Text="No artwork selected" />
+        </StackPanel>
+
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top"
+                     Classes="caption"
+                     Text="TEMPLATES"
+                     Margin="22,16,22,6" />
+          <ListBox x:Name="TemplateList"
+                   Classes="sidebar"
+                   AutomationProperties.Name="LCD template">
+            <ListBox.ItemTemplate>
+              <DataTemplate x:DataType="local:LcdTemplate">
+                <StackPanel Spacing="1">
+                  <TextBlock Text="{Binding Name}"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             TextTrimming="CharacterEllipsis" />
+                  <TextBlock Text="{Binding Detail}"
+                             FontSize="11"
+                             Opacity="0.62"
+                             TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </DockPanel>
+      </DockPanel>
     </Border>
 
-    <StackPanel Grid.Row="3" Margin="0,12,0,0" Spacing="8">
-      <TextBlock Text="Template" FontSize="12" Foreground="#94A3B8" />
-      <ComboBox x:Name="TemplateList"
-                MinHeight="36"
-                HorizontalAlignment="Stretch"
-                AutomationProperties.Name="LCD template" />
-    </StackPanel>
+    <DockPanel Grid.Column="1">
+      <Border DockPanel.Dock="Top" Padding="28,20,28,8">
+        <Grid ColumnDefinitions="*,Auto">
+          <StackPanel VerticalAlignment="Center" Spacing="2">
+            <TextBlock x:Name="TemplateTitle"
+                       Text="Preview"
+                       FontSize="28"
+                       FontWeight="SemiBold"
+                       Foreground="#F5F5F7" />
+            <TextBlock Text="320 × 240 pump LCD"
+                       FontSize="13"
+                       Foreground="#8E8E93" />
+          </StackPanel>
+          <StackPanel Grid.Column="1"
+                      Orientation="Horizontal"
+                      Spacing="8"
+                      VerticalAlignment="Center">
+            <Button Content="Find device"
+                    Click="OnFindDevice"
+                    HotKey="Ctrl+F"
+                    ToolTip.Tip="Look for the LM240 again (Ctrl+F)"
+                    AutomationProperties.Name="Find LM240" />
+            <Button x:Name="SendButton"
+                    Classes="send"
+                    Content="Send to Display"
+                    Click="OnSend"
+                    HotKey="Ctrl+S"
+                    ToolTip.Tip="Push this frame to the pump (Ctrl+S)"
+                    AutomationProperties.Name="Send frame to LCD" />
+          </StackPanel>
+        </Grid>
+      </Border>
 
-    <WrapPanel Grid.Row="4" Margin="0,12,0,0">
-      <WrapPanel.Styles>
-        <Style Selector="Button">
-          <Setter Property="Margin" Value="0,0,8,0" />
-        </Style>
-      </WrapPanel.Styles>
-      <Button Content="Game art" Click="OnLoadGameArt" HotKey="Ctrl+O" AutomationProperties.Name="Load game art" />
-      <Button Content="Find device" Click="OnFindDevice" HotKey="Ctrl+F" AutomationProperties.Name="Find LM240" />
-      <Button x:Name="SendButton" Classes="send" Content="Send to LCD" Click="OnSend" HotKey="Ctrl+S" AutomationProperties.Name="Send frame to LCD" />
-    </WrapPanel>
+      <TextBlock x:Name="StatusText"
+                 DockPanel.Dock="Bottom"
+                 Margin="28,4,28,18"
+                 FontSize="12"
+                 Foreground="#8E8E93"
+                 TextWrapping="Wrap"
+                 Text="Ready" />
+
+      <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="28,8,28,12"
+                    Spacing="18"
+                    MaxWidth="640">
+          <Border Background="#000000"
+                  CornerRadius="24"
+                  Padding="12"
+                  HorizontalAlignment="Center"
+                  BorderBrush="#3A3A3C"
+                  BorderThickness="1">
+            <Border Background="#111111"
+                    CornerRadius="14"
+                    ClipToBounds="True">
+              <Viewbox Width="480" Height="360" Stretch="Uniform">
+                <Image x:Name="LcdPreview"
+                       Width="320"
+                       Height="240"
+                       Stretch="Fill"
+                       RenderOptions.BitmapInterpolationMode="None" />
+              </Viewbox>
+            </Border>
+          </Border>
+
+          <Grid ColumnDefinitions="*,12,*,12,*,12,*">
+            <Border Classes="metric">
+              <StackPanel Spacing="2">
+                <TextBlock Classes="caption" Text="CPU POWER" />
+                <TextBlock x:Name="CpuPowerText" Classes="metricValue" Text="—" />
+              </StackPanel>
+            </Border>
+            <Border Classes="metric" Grid.Column="2">
+              <StackPanel Spacing="2">
+                <TextBlock Classes="caption" Text="CPU TEMP" />
+                <TextBlock x:Name="CpuTempText" Classes="metricValue" Text="—" />
+              </StackPanel>
+            </Border>
+            <Border Classes="metric" Grid.Column="4">
+              <StackPanel Spacing="2">
+                <TextBlock Classes="caption" Text="GPU POWER" />
+                <TextBlock x:Name="GpuPowerText" Classes="metricValue" Text="—" />
+              </StackPanel>
+            </Border>
+            <Border Classes="metric" Grid.Column="6">
+              <StackPanel Spacing="2">
+                <TextBlock Classes="caption" Text="GPU TEMP" />
+                <TextBlock x:Name="GpuTempText" Classes="metricValue" Text="—" />
+              </StackPanel>
+            </Border>
+          </Grid>
+        </StackPanel>
+      </ScrollViewer>
+    </DockPanel>
   </Grid>
 </Window>

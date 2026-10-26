@@ -1,6 +1,7 @@
 {
   "id": "classic",
   "name": "Classic dual",
+  "description": "CPU and GPU side by side",
   "background": "#0E0E12",
   "elements": [
     { "type": "rect", "x": 12, "y": 10, "w": 296, "h": 108, "radius": 8, "stroke": "#282832", "strokeWidth": 2 },

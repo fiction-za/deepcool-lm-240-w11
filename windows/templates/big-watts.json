@@ -1,6 +1,7 @@
 {
   "id": "big-watts",
   "name": "Big watts",
+  "description": "Large power numbers",
   "background": "#020617",
   "elements": [
     { "type": "text", "x": 16, "y": 14, "text": "CPU", "color": "#64748B", "size": 14, "weight": "bold" },

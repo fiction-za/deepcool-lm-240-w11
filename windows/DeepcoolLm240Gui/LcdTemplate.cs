@@ -7,10 +7,12 @@ public sealed class LcdTemplate
 {
     [JsonPropertyName("id")] public string Id { get; set; } = "";
     [JsonPropertyName("name")] public string Name { get; set; } = "";
+    [JsonPropertyName("description")] public string Description { get; set; } = "";
     [JsonPropertyName("background")] public string Background { get; set; } = "#0E0E12";
     [JsonPropertyName("elements")] public List<LcdElement> Elements { get; set; } = [];
 
     public string SourcePath { get; set; } = "";
+    [JsonIgnore] public string Detail => string.IsNullOrWhiteSpace(Description) ? Id : Description;
     public override string ToString() => string.IsNullOrWhiteSpace(Name) ? Id : Name;
 
     public static LcdTemplate Load(string path)

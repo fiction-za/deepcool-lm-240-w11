@@ -25,6 +25,7 @@ public partial class MainWindow : Window
     string? _devicePath;
     string? _gameArtPath;
     bool _busy;
+    bool _opened;
 
     public MainWindow()
     {
@@ -50,16 +51,25 @@ public partial class MainWindow : Window
         {
             e.Cancel = true;
             Hide();
-            StatusText.Text = "Running in the tray. Open from the tray icon, or Exit to quit.";
+            StatusText.Text = "Still running in the tray. Open it from there, or Quit to exit.";
         }
 
         base.OnClosing(e);
     }
 
+    protected override void OnOpened(EventArgs e)
+    {
+        base.OnOpened(e);
+        _opened = true;
+        WindowState = WindowState.Normal;
+        InvalidateMeasure();
+        InvalidateVisual();
+    }
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
-        if (change.Property == WindowStateProperty && WindowState == WindowState.Minimized)
+        if (_opened && change.Property == WindowStateProperty && WindowState == WindowState.Minimized)
         {
             Hide();
             WindowState = WindowState.Normal;
@@ -83,7 +93,7 @@ public partial class MainWindow : Window
         if (templates.Count > 0)
             TemplateList.SelectedIndex = 0;
         else
-            StatusText.Text = $"No templates in {dir}. Add a JSON file and restart.";
+            StatusText.Text = "No templates found. Add a JSON file in windows/templates and reopen.";
     }
 
     void RenderCurrent()
@@ -93,6 +103,11 @@ public partial class MainWindow : Window
         var stats = MonitorSnapshot.Demo(DateTime.UtcNow, "Demo session", _gameArtPath);
         _frame = _renderer.RenderRgb565(template, stats);
         ShowFrame(_frame);
+        TemplateTitle.Text = template.Name;
+        CpuPowerText.Text = $"{stats.CpuPower:0} W";
+        CpuTempText.Text = $"{stats.CpuTemp:0}°";
+        GpuPowerText.Text = $"{stats.GpuPower:0} W";
+        GpuTempText.Text = $"{stats.GpuTemp:0}°";
     }
 
     async void OnLoadGameArt(object? sender, RoutedEventArgs e)
@@ -112,8 +127,9 @@ public partial class MainWindow : Window
             await input.CopyToAsync(output);
 
         _gameArtPath = dest;
+        GameArtLabel.Text = files[0].Name;
         RenderCurrent();
-        StatusText.Text = $"Game art: {files[0].Name}. Game detection will fill this slot later.";
+        StatusText.Text = $"Using {files[0].Name} as game art. Detection will fill this automatically later.";
     }
 
     void OnFindDevice(object? sender, RoutedEventArgs e)
@@ -140,8 +156,8 @@ public partial class MainWindow : Window
                 _device!.SendFrame(frame);
             });
             StatusText.Text = OperatingSystem.IsWindows()
-                ? $"Sent template to {_devicePath}"
-                : "Preview only. USB send requires Windows 11 with WinUSB.";
+                ? "Sent to the pump display."
+                : "Preview only on this computer. Sending needs Windows 11 and WinUSB.";
         }
         catch (Exception ex)
         {
@@ -160,7 +176,7 @@ public partial class MainWindow : Window
     {
         if (!OperatingSystem.IsWindows())
             throw new PlatformNotSupportedException(
-                "Preview updated. USB send requires Windows 11. Bind WinUSB with Zadig first.");
+                "Preview updated. Sending to the display needs Windows 11 with WinUSB.");
 
         if (_device is not null)
             return;
@@ -168,7 +184,7 @@ public partial class MainWindow : Window
         var devices = Lm240Device.Find();
         if (devices.Count == 0)
             throw new InvalidOperationException(
-                "No LM240 found (VID 3633 PID 0026). Close DeepCool software and bind WinUSB with Zadig.");
+                "No LM240 found. Close DeepCool’s app and bind WinUSB in Zadig.");
 
         _devicePath = devices[0].Path;
         _device = Lm240Device.Open(_devicePath);
@@ -178,14 +194,22 @@ public partial class MainWindow : Window
     {
         if (!OperatingSystem.IsWindows())
         {
-            StatusText.Text = "Edit JSON in windows/templates. Preview uses demo CPU/GPU power. Live sensors and game detection are next.";
+            DeviceStatusText.Text = "Demo sensors";
+            StatusText.Text = "Preview with demo sensors. Sending to the pump needs Windows 11.";
             return;
         }
 
         var devices = Lm240Device.Find();
-        StatusText.Text = devices.Count == 0
-            ? "No LM240 found. Close DeepCool software and bind WinUSB with Zadig."
-            : $"Found {devices.Count} device(s). Choose a template, then send.";
+        if (devices.Count == 0)
+        {
+            DeviceStatusText.Text = "Display not found";
+            StatusText.Text = "Close DeepCool’s app and bind WinUSB in Zadig, then Find device.";
+        }
+        else
+        {
+            DeviceStatusText.Text = "Display connected";
+            StatusText.Text = "Choose a template, then Send to Display.";
+        }
     }
 
     void ShowFrame(byte[] frame)

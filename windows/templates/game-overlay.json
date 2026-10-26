@@ -1,6 +1,7 @@
 {
   "id": "game-overlay",
   "name": "Game overlay",
+  "description": "Artwork with a live HUD",
   "background": "#020617",
   "elements": [
     { "type": "image", "x": 0, "y": 0, "w": 320, "h": 240, "opacity": 0.38, "bind": "game.art" },
